@@ -37,6 +37,8 @@ function Form() {
         terms: ''
     })
 
+    const [users, setUsers] = useState([])
+
     const [buttonDisabled, setButtonDisabled] = useState(true)
 
     useEffect(() => {
@@ -63,6 +65,7 @@ function Form() {
             .post('https://reqres.in/api/users', formData)
             .then(res => {
                 console.log(res)
+                setUsers(res.data)
                 setFormData({
                     name: '',
                     email: '',
@@ -94,6 +97,7 @@ function Form() {
     }
 
     return(
+        <div>
         <form id='advForm' onSubmit={handleSubmit}>
             Advanced Form
             <label>
@@ -143,6 +147,11 @@ function Form() {
                 Submit
             </button>
         </form>
+        <div>
+            <h1>User:</h1>
+            {users && <p>{users.name}</p>}
+        </div>
+        </div>
     )
 }
 
